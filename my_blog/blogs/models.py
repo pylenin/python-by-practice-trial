@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+
+from tinymce import HTMLField
 # Create your models here.
 
 User = get_user_model()
@@ -22,6 +24,7 @@ class Blogs(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=50)
     overview = models.TextField()
+    content = HTMLField()
     timestamp = models.DateTimeField(auto_now_add=True)
     comment_count = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
