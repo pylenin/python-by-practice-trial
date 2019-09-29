@@ -18,13 +18,15 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from blogs.views import index, blogs
+from blogs.views import index, blogs, posts, search_results
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', index),
-    path('blogs/', blogs)
+    path('search/', search_results, name="search"),
+    path('blogs/', blogs, name="blogs-list"),
+    path('blogs/<slug>', posts, name="blog-detail")
 ]
 
 if settings.DEBUG:

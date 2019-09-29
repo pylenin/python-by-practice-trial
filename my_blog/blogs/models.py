@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 # Create your models here.
 
 User = get_user_model()
@@ -23,11 +24,16 @@ class Blogs(models.Model):
     overview = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     comment_count = models.IntegerField(default=0)
-    author = models.ManyToManyField(Author)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     thumbnail = models.ImageField()
     categories = models.ManyToManyField(Category)
     is_course = models.BooleanField()
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog-detail', kwargs={
+            "slug":self.slug
+        })
 
